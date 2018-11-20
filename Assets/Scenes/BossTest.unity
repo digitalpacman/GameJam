@@ -407,7 +407,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 534294503}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.22, y: 1.1619023, z: 0}
+  m_LocalPosition: {x: 0.38, y: 1.65, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -428,7 +428,7 @@ MonoBehaviour:
   circleShotSpeed: 1
   explosionShotSpeed: 1
   enableSingleShot: 0
-  enableCircleShot: 0
+  enableCircleShot: 1
   enableExplosionShot: 0
   bullet: {fileID: 2066113550}
   player: {fileID: 1180648531}
@@ -552,7 +552,6 @@ GameObject:
   - component: {fileID: 1180648534}
   - component: {fileID: 1180648533}
   - component: {fileID: 1180648532}
-  - component: {fileID: 1180648537}
   - component: {fileID: 1180648536}
   - component: {fileID: 1180648535}
   m_Layer: 0
@@ -633,26 +632,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1180648535
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &1180648535
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1180648531}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa1093a9f36182e4abd7f69405c8eb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &1180648536
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -678,17 +668,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1180648537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1180648531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e36037b493e99f645b5bc4657fc1bcb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1459221973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,6 +1203,7 @@ GameObject:
   - component: {fileID: 2066113551}
   - component: {fileID: 2066113554}
   - component: {fileID: 2066113555}
+  - component: {fileID: 2066113556}
   m_Layer: 8
   m_Name: bossbullet
   m_TagString: Untagged
@@ -1313,11 +1293,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 35f9e2b6d61c57241ad86384e65179e1, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -1345,8 +1325,19 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.2}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2066113556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2066113550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8af20713c74c911488b6bc2d8c28e8d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2091640550
 GameObject:
   m_ObjectHideFlags: 0

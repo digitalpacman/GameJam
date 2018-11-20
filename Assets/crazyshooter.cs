@@ -5,8 +5,9 @@ using UnityEngine;
 public class crazyshooter : MonoBehaviour
 {
     private Timer singleShot = new Timer(1f);
-    private Timer circleShot = new Timer(5f);
-    private Timer explosionShot = new Timer(2f);
+    private Timer circleShot = new Timer(1f);
+    private Timer explosionShot = new Timer(1f);
+    private float circleOffset = 0;
 
     public float singleShotSpeed = 3f;
     public float circleShotSpeed = 1f;
@@ -36,8 +37,8 @@ public class crazyshooter : MonoBehaviour
         if (circleShot.IsReady(Time.deltaTime) && enableCircleShot)
         {
             var distance = 2 * Mathf.PI / bulletsPerCircle;
-            var r = transform.localScale.x / 2;
-            var angle = 0f;
+            var r = transform.localScale.x / 1.5f;
+            var angle = circleOffset;
             for (var i = 0; i < bulletsPerCircle; i++)
             {
                 var x = transform.position.x + r * Mathf.Cos(angle);
@@ -48,6 +49,8 @@ public class crazyshooter : MonoBehaviour
                 var trajectory = (newBullet.transform.position - transform.position).normalized * circleShotSpeed;
                 newBullet.GetComponent<Rigidbody2D>().velocity = trajectory;
             }
+
+            circleOffset += distance / 2;
         }
 
         if (explosionShot.IsReady(Time.deltaTime) && enableExplosionShot)
