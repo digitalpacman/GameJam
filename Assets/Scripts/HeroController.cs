@@ -12,6 +12,7 @@ public class HeroController : MonoBehaviour {
         Agent = GetComponent<NavMeshAgent>();
         Agent.enabled = false;
         Agent.enabled = true;
+        Agent.updateRotation = false;
         //Agent.SetDestination(new Vector3(5, 5, 0));
 	}
 	
