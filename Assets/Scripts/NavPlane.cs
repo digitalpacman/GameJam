@@ -16,14 +16,13 @@ public class NavPlane : MonoBehaviour, IPointerClickHandler {
     public MeshFilter MeshFilter;
 
     void Start() {
-        
+        GenerateBlockingMesh();
     }
 
     public void OnPointerClick(PointerEventData pointerData) {
         Vector3 worldPosition = pointerData.pointerCurrentRaycast.worldPosition;
         if (Input.GetMouseButtonUp(0)) {
             //
-            GenerateBlockingMesh();
         }
         else if (Input.GetMouseButtonUp(1)) {
             Hero.Agent.SetDestination(worldPosition);
@@ -39,7 +38,7 @@ public class NavPlane : MonoBehaviour, IPointerClickHandler {
             int x = Collider.GetPath(i, test);
 
             GameObject go = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            go.transform.parent = transform;
+            go.transform.parent = MeshFilter.gameObject.transform;
             Mesh mesh = new Mesh();
             Vector3[] verts = new Vector3[test.Length];
             for (int j = 0; j < verts.Length; j++) {
@@ -51,6 +50,7 @@ public class NavPlane : MonoBehaviour, IPointerClickHandler {
 
             NavMeshModifier mod = go.AddComponent<NavMeshModifier>();
             mod.area = 1;
+            mod.overrideArea = true;
         }
 
         MeshFilter.gameObject.transform.position = MeshFilter.gameObject.transform.position + Walls.gameObject.transform.position;
