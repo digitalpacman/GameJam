@@ -2,12 +2,8 @@
 
 public class PlayerCollider : MonoBehaviour
 {
-    void OnCollisionEnter2D(Collision2D collision)
+    private void FixedUpdate()
     {
-        var hits = collision.gameObject.GetComponent<HitsPlayer>();
-        if (hits != null)
-        {
-            hits.Hit();
-        }
+        //GetComponent<Rigidbody2D>().AddForce(Vector3.up * 0.5f);
     }
 }

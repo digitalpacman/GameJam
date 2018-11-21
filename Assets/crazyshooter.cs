@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class crazyshooter : MonoBehaviour
@@ -7,15 +6,18 @@ public class crazyshooter : MonoBehaviour
     private Timer singleShot = new Timer(1f);
     private Timer circleShot = new Timer(1f);
     private Timer explosionShot = new Timer(1f);
+    private Timer slam = new Timer(1f);
     private float circleOffset = 0;
 
     public float singleShotSpeed = 3f;
     public float circleShotSpeed = 1f;
     public float explosionShotSpeed = 1f;
+    public float slamSpeed = 1f;
 
     public bool enableSingleShot = false;
     public bool enableCircleShot = false;
     public bool enableExplosionShot = false;
+    public bool enableSlam = false;
 
     public GameObject bullet;
     public GameObject player;
@@ -63,6 +65,25 @@ public class crazyshooter : MonoBehaviour
             exploder.bullet = bullet;
             exploder.destination = player.transform.position;
             exploder.explosionBullets = bulletsPerExplosion;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (enableSlam)
+        {
+            var rayCasts = Physics2D.BoxCastAll(transform.position, new Vector2(4, 4), 0, new Vector2(0, 0));
+            for (var i = 0; i < rayCasts.Length; i++)
+            {
+                if (rayCasts[i].transform.gameObject.tag == "Player")
+                {
+                    Debug.Log("Player damaged");
+                    //var velocity = (Vector2)(rayCasts[i].transform.position - transform.position).normalized * 10f;
+                    //rayCasts[i].rigidbody.velocity += velocity;
+                    enableSlam = false;
+                    break;
+                }
+            }
         }
     }
 }
