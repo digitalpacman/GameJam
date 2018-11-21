@@ -114,7 +114,6 @@ MonoBehaviour:
   Hero: {fileID: 0}
   Walls: {fileID: 0}
   CompositeCollider: {fileID: 0}
-  MeshFilter: {fileID: 0}
 --- !u!114 &114319062566806296
 MonoBehaviour:
   m_ObjectHideFlags: 1

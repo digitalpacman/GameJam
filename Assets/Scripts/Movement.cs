@@ -8,10 +8,13 @@ public class Movement : MonoBehaviour {
 
     public NavMeshAgent Agent { get; private set; }
 
-	//
-	void Start () {
+    void Awake() {
         Agent = GetComponent<NavMeshAgent>();
         Agent.updateRotation = false;
+    }
+
+	//
+	void Start () {
     }
 	
     //
