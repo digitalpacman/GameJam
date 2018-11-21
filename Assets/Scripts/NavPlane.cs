@@ -9,23 +9,23 @@ public class NavPlane : MonoBehaviour, IPointerClickHandler {
 
     public HeroController Hero;
     public Tilemap Walls;
-    public Collider2D TilemapCollider;
-    public CompositeCollider2D Collider;
-
-    Mesh BlockingMesh;
-    public MeshFilter MeshFilter;
+    public CompositeCollider2D CompositeCollider;    
 
     void Start() {
         GenerateBlockingMesh();
+
+        // testing
+        EnemyController Enemy = FindObjectOfType<EnemyController>();
+        Enemy.Movement.MoveTo(Vector3.down);
     }
 
     public void OnPointerClick(PointerEventData pointerData) {
         Vector3 worldPosition = pointerData.pointerCurrentRaycast.worldPosition;
         if (Input.GetMouseButtonUp(0)) {
-            //
+            Hero.Movement.MoveTo(worldPosition);
         }
         else if (Input.GetMouseButtonUp(1)) {
-            Hero.Agent.SetDestination(worldPosition);
+            // use ability
         }
     }
 
@@ -33,16 +33,16 @@ public class NavPlane : MonoBehaviour, IPointerClickHandler {
     //
     public void GenerateBlockingMesh() {
 
-        for (int i = 0; i < Collider.pathCount; i++) {
-            Vector2[] test = new Vector2[Collider.GetPathPointCount(i)];
-            int x = Collider.GetPath(i, test);
+        for (int i = 0; i < CompositeCollider.pathCount; i++) {
+            Vector2[] pathPoints = new Vector2[CompositeCollider.GetPathPointCount(i)];
+            int x = CompositeCollider.GetPath(i, pathPoints);
 
             GameObject go = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            go.transform.parent = MeshFilter.gameObject.transform;
+            go.transform.parent = transform;
             Mesh mesh = new Mesh();
-            Vector3[] verts = new Vector3[test.Length];
+            Vector3[] verts = new Vector3[pathPoints.Length];
             for (int j = 0; j < verts.Length; j++) {
-                verts[j] = test[j];
+                verts[j] = pathPoints[j];
             }
             mesh.vertices = verts;
             mesh.triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
@@ -53,7 +53,8 @@ public class NavPlane : MonoBehaviour, IPointerClickHandler {
             mod.overrideArea = true;
         }
 
-        MeshFilter.gameObject.transform.position = MeshFilter.gameObject.transform.position + Walls.gameObject.transform.position;
+        //MeshFilter.gameObject.transform.position = MeshFilter.gameObject.transform.position + Walls.gameObject.transform.position;
+        transform.position = transform.position + Walls.gameObject.transform.position;
 
         GetComponent<NavMeshSurface>().BuildNavMesh();
     }
