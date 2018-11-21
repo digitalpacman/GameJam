@@ -6,7 +6,7 @@ public class crazyshooter : MonoBehaviour
     private Timer singleShot = new Timer(1f);
     private Timer circleShot = new Timer(1f);
     private Timer explosionShot = new Timer(1f);
-    private Timer slam = new Timer(1f);
+    private Timer slamTimer = new Timer(1f);
     private float circleOffset = 0;
 
     public float singleShotSpeed = 3f;
@@ -24,6 +24,8 @@ public class crazyshooter : MonoBehaviour
     public float bulletsPerCircle = 10;
     public float bulletsPerExplosion = 10;
 
+    public TossBehavior axe;
+    public GameObject rays;
 
     // Update is called once per frame
     void Update()
@@ -68,11 +70,31 @@ public class crazyshooter : MonoBehaviour
         }
     }
 
+    private void ThrowAxe()
+    {
+        var axe = Instantiate(this.axe);
+        axe.enabled = false;
+        axe.transform.position = transform.position;
+        axe.target = player.transform.position;
+        axe.enabled = true;
+    }
+
+    private void StartElectricityAttack()
+    {
+        for (var i = 0; i < rays.transform.childCount; i++)
+        {
+            var ray = rays.transform.GetChild(i);
+
+        }
+    }
+
     private void FixedUpdate()
     {
-        if (enableSlam)
+        if (enableSlam && slamTimer.IsReady(Time.deltaTime))
         {
+            ThrowAxe();
             var rayCasts = Physics2D.BoxCastAll(transform.position, new Vector2(4, 4), 0, new Vector2(0, 0));
+            SpawnAttackBox(transform.position, new Vector2(4, 4));
             for (var i = 0; i < rayCasts.Length; i++)
             {
                 if (rayCasts[i].transform.gameObject.tag == "Player")
@@ -80,11 +102,21 @@ public class crazyshooter : MonoBehaviour
                     Debug.Log("Player damaged");
                     //var velocity = (Vector2)(rayCasts[i].transform.position - transform.position).normalized * 10f;
                     //rayCasts[i].rigidbody.velocity += velocity;
-                    enableSlam = false;
                     break;
                 }
             }
         }
+    }
+
+    private void SpawnAttackBox(Vector2 position, Vector2 size)
+    {
+        var box = new GameObject();
+        box.transform.position = position;
+        box.transform.localScale = size;
+        box.AddComponent<Outliner>();
+        box.GetComponent<Outliner>().drawMode = Outliner.OutlineMode.WireCube;
+        box.GetComponent<Outliner>().color = Color.red;
+        Destroy(box, 5f);
     }
 }
 
