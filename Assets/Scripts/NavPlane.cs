@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 using UnityEngine.AI;
 
-public class NavPlane : MonoBehaviour, IPointerClickHandler {
+public class NavPlane : MonoBehaviour, IPointerDownHandler {
 
     public HeroController Hero;
     public Tilemap Walls;
@@ -15,16 +15,16 @@ public class NavPlane : MonoBehaviour, IPointerClickHandler {
         GenerateBlockingMesh();
 
         // testing
-        EnemyController Enemy = FindObjectOfType<EnemyController>();
-        Enemy.Movement.MoveTo(Vector3.down);
+        //EnemyController Enemy = FindObjectOfType<EnemyController>();
+        //Enemy.Movement.MoveTo(Vector3.down);
     }
 
-    public void OnPointerClick(PointerEventData pointerData) {
+    public void OnPointerDown(PointerEventData pointerData) {
         Vector3 worldPosition = pointerData.pointerCurrentRaycast.worldPosition;
-        if (Input.GetMouseButtonUp(0)) {
+        if (Input.GetMouseButtonDown(0)) {
             Hero.Movement.MoveTo(worldPosition);
         }
-        else if (Input.GetMouseButtonUp(1)) {
+        else if (Input.GetMouseButtonDown(1)) {
             // use ability
         }
     }
@@ -35,7 +35,7 @@ public class NavPlane : MonoBehaviour, IPointerClickHandler {
 
         for (int i = 0; i < CompositeCollider.pathCount; i++) {
             Vector2[] pathPoints = new Vector2[CompositeCollider.GetPathPointCount(i)];
-            int x = CompositeCollider.GetPath(i, pathPoints);
+            CompositeCollider.GetPath(i, pathPoints);
 
             GameObject go = GameObject.CreatePrimitive(PrimitiveType.Quad);
             go.transform.parent = transform;

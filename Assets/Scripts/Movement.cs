@@ -12,10 +12,6 @@ public class Movement : MonoBehaviour {
         Agent = GetComponent<NavMeshAgent>();
         Agent.updateRotation = false;
     }
-
-	//
-	void Start () {
-    }
 	
     //
 	public void MoveTo(Vector3 position) {
