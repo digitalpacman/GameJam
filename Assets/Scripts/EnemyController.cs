@@ -7,16 +7,25 @@ public class EnemyController : MonoBehaviour {
 
     public HeroController Hero { get; private set; }
     public Movement Movement { get; private set; }
+    public BoxCollider2D Hitbox { get; private set; }
+
+    bool Kill = false;
 
     //
     void Awake() {
         Hero = FindObjectOfType<HeroController>();
         Movement = GetComponent<Movement>();
+        Hitbox = GetComponentInChildren<BoxCollider2D>();
     }
 
     //
     public void Update() {
-       Movement.MoveTo(Hero.transform.position);
+        if (Kill) {
+            Destroy(gameObject);
+            return;
+        }
+
+       //Movement.MoveTo(Hero.transform.position);
     }
     
     //
@@ -26,6 +35,8 @@ public class EnemyController : MonoBehaviour {
 
     //
     public void Die() {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        //gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
+        Kill = true;
     }
 }

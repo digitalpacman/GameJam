@@ -22,7 +22,8 @@ public class NavPlane : MonoBehaviour, IPointerDownHandler {
     public void OnPointerDown(PointerEventData pointerData) {
         Vector3 worldPosition = pointerData.pointerCurrentRaycast.worldPosition;
         if (Input.GetMouseButtonDown(0)) {
-            Hero.Movement.MoveTo(worldPosition);
+            if (Hero.enemyTarget != null) { Hero.enemyTarget = null; }
+            Hero.MoveTo(worldPosition);
         }
         else if (Input.GetMouseButtonDown(1)) {
             // use ability
